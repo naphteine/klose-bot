@@ -60,19 +60,26 @@ end
 
 logger("Klose bot starting...")
 
+output = "I'm tired of everything"
+
+if rand(1..100) < 50
+  output = $locationSentences.sample + " in " + $locations.sample
+else
+  output = $randomSentences.sample
+end
+
 begin
   while true
-    output = "I'm tired of everything"
+    logger("TWEETING: " + output)
+    client.update(output)
+    sleepsecs = rand(2400..3600)
 
     if rand(1..100) < 50
       output = $locationSentences.sample + " in " + $locations.sample
     else
       output = $randomSentences.sample
     end
-
-    logger("TWEETING: " + output)
-    client.update(output)
-    sleepsecs = 1 * 60 * 60
+    logger("NEXT TWEET: " + output)
     logger("SLEEPING: #{sleepsecs} seconds")
     sleep(sleepsecs)
   end
